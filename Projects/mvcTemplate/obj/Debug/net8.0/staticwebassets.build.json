@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "z03rAMkZgqu97XnBbwjhcV0RSeta6ELM+HbmjjeLai8=",
+  "Hash": "ZkzaxATnu1XDaJHICv/9CoetiFr7s3tkkFnWH0nGCSk=",
   "Source": "mvc",
   "BasePath": "_content/mvc",
   "Mode": "Default",
@@ -53,6 +53,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\Quent\\codelab\\Isitech\\.net\\Projects\\mvcTemplate\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\mvc.bundle.scp.css"
+    },
+    {
+      "Identity": "C:\\Users\\Quent\\codelab\\Isitech\\.net\\Projects\\mvcTemplate\\wwwroot\\css\\app.css",
+      "SourceId": "mvc",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Quent\\codelab\\Isitech\\.net\\Projects\\mvcTemplate\\wwwroot\\",
+      "BasePath": "_content/mvc",
+      "RelativePath": "css/app.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\app.css"
     },
     {
       "Identity": "C:\\Users\\Quent\\codelab\\Isitech\\.net\\Projects\\mvcTemplate\\wwwroot\\css\\site.css",

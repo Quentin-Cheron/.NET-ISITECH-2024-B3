@@ -28,3 +28,4 @@ C:\Users\Quent\codelab\Isitech\.net\Projects\mvcTemplate\obj\Debug\net8.0\refint
 C:\Users\Quent\codelab\Isitech\.net\Projects\mvcTemplate\obj\Debug\net8.0\mvc.pdb
 C:\Users\Quent\codelab\Isitech\.net\Projects\mvcTemplate\obj\Debug\net8.0\mvc.genruntimeconfig.cache
 C:\Users\Quent\codelab\Isitech\.net\Projects\mvcTemplate\obj\Debug\net8.0\ref\mvc.dll
+C:\Users\Quent\codelab\Isitech\.net\Projects\mvcTemplate\obj\Debug\net8.0\mvc.sourcelink.json

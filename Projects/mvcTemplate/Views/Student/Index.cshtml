@@ -1,5 +1,100 @@
-﻿@model Student
+﻿@model IEnumerable<Student>
 
-<div>
-    Hello world
+<div class="px-4 sm:px-6 lg:px-8">
+    <div class="sm:flex sm:items-center">
+        <div class="sm:flex-auto">
+            <h1 class="text-base font-semibold text-gray-900">Users</h1>
+            <p class="mt-2 text-sm text-gray-700">
+                A list of all the users in your account including their name, title, email and role.
+            </p>
+        </div>
+        <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+            <form method="post" asp-controller="Student" asp-action="Add" class="space-y-4">
+                <input type="text" name="firstname" class="border p-2 rounded" placeholder="Firstname" />
+                <input type="text" name="lastname" class="border p-2 rounded" placeholder="Lastname" />
+                <input type="text" name="age" class="border p-2 rounded" placeholder="Age" />
+                <input type="hidden" name="isUpdate" id="isUpdate" value="false" />
+                <button type="submit" id="addUpdate"
+                    class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                    Add user
+                </button>
+            </form>
+            <form id="update" method="post" asp-controller="Student" asp-action="Update" class="space-y-4 hidden">
+                <input type="text" name="firstname" class="border p-2 rounded" placeholder="Firstname" />
+                <input type="text" name="lastname" class="border p-2 rounded" placeholder="Lastname" />
+                <input type="text" name="age" class="border p-2 rounded" placeholder="Age" />
+                <input type="hidden" name="isUpdate" id="isUpdate" value="false" />
+                <button type="submit" id="addUpdate"
+                    class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                    Update user
+                </button>
+            </form>
+        </div>
+    </div>
+    <div class="mt-8 flow-root">
+        <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                <table class="min-w-full divide-y divide-gray-300">
+                    <thead>
+                        <tr>
+                            <th scope="col"
+                                class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">
+                                Name
+                            </th>
+                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                Title
+                            </th>
+                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                Email
+                            </th>
+                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                Role
+                            </th>
+                            <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0">
+                                <span class="sr-only">Remove</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        @foreach (var student in Model)
+                        {
+                            <form method="post" asp-controller="Student" asp-action="Update" class="inline">
+                                <tr key={student.Email}>
+                                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900">
+                                        <input type="text" name="firstname" class="border p-2 rounded"
+                                            value="@student.Firstname" />
+                                    </td>
+                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"> <input type="text"
+                                            name="lastname" class="border p-2 rounded" value="@student.Lastname" /></td>
+                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"> <input type="text"
+                                            name="age" class="border p-2 rounded" value="@student.Age" /></td>
+                                    <td
+                                        class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+
+                                        <input type="hidden" name="id" value="@student.Id" />
+                                        <button type="submit" class="text-indigo-600 hover:text-indigo-900">Update</button>
+                                    </td>
+                                    <td
+                                        class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+                                        <a asp-controller="Student" asp-action="Delete" asp-route-id="@student.Id"
+                                            class="text-indigo-600 hover:text-indigo-900">Delete</a>
+                                    </td>
+                                </tr>
+                            </form>
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
+
+<script>
+    function setStudentValues(firstname, lastname, age, type) {
+        document.querySelector('#update input[name="firstname"]').value = firstname;
+        document.querySelector('#update input[name="lastname"]').value = lastname;
+        document.querySelector('#update input[name="age"]').value = age;
+        document.querySelector('#update').classList.toggle('hidden');
+    }
+</script>

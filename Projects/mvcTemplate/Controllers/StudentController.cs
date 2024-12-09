@@ -1,14 +1,51 @@
 using Microsoft.AspNetCore.Mvc;
 
+using mvc.Models;
+
 namespace mvc.Controllers
 {
     public class StudentController : Controller
     {
+        // Création d'une liste statique de Student
+        private static List<Student> students = new()
+        {
+            new() { AdmissionDate = new DateTime(2021, 9, 1), Age = 20, Firstname = "Quentin", GPA = 3.5, Id = 1, Lastname = "Crespin", Major = Major.History },
+            new() { AdmissionDate = new DateTime(2021, 9, 1), Age = 20, Firstname = "Thomas", GPA = 3.5, Id = 2, Lastname = "Crespin", Major = Major.History },
+            new() { AdmissionDate = new DateTime(2021, 9, 1), Age = 20, Firstname = "Charlie", GPA = 3.5, Id = 3, Lastname = "Doe", Major = Major.History },
+            new() { AdmissionDate = new DateTime(2021, 9, 1), Age = 20, Firstname = "Jean", GPA = 3.5, Id = 4, Lastname = "Doe", Major = Major.History },
+        };
         // GET: StudentController
         public ActionResult Index()
         {
-            return View();
+            return View(students);
         }
 
+        public ActionResult Delete(int id)
+        {
+            var studentToDelete = students.FirstOrDefault(student => student.Id == id);
+            if (studentToDelete != null)
+            {
+                students.Remove(studentToDelete);
+            }
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Add(string firstname, string lastname, int age)
+        {
+            students.Add(new() { Firstname = firstname, Lastname = lastname, Age = age, GPA = 3.5, Id = students.Count + 1, Major = Major.History });
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Update(string firstname, string lastname, int age, int id)
+        {
+            var studentToUpdate = students.FirstOrDefault(student => student.Id == id);
+            if (studentToUpdate != null)
+            {
+                studentToUpdate.Firstname = firstname;
+                studentToUpdate.Lastname = lastname;
+                studentToUpdate.Age = age;
+            }
+            return RedirectToAction("Index");
+        }
     }
 }
