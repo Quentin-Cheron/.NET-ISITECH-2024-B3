@@ -22,8 +22,12 @@ Namespacee : Un espace de noms est une sorte de dossier qui contient des classes
 
 Models : classes qui représentent les données
 
-Views : fichiers HTML qui sont affichés par les controllers
+Views : fichiers HTML qui sont affichés par les controllers, il doit avoir le nom de la méthode du controller
 
 Controllers : classes qui gèrent les requêtes HTTP et retournent des réponses HTTP
 
 WWWRoot : fichiers statiques (css, js, images)
+
+## Utils
+
+- `comment`: @* comment *@

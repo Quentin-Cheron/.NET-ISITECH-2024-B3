@@ -1,30 +1,106 @@
 ﻿@model IEnumerable<Teacher>
 
-<h1>
-    Liste des professeures
-</h1>
+<div class="px-4 sm:px-6 lg:px-8">
+    <div class="sm:flex sm:items-center">
+        <div class="sm:flex-auto">
+            <h1 class="text-base font-semibold text-gray-900">Users</h1>
+            <p class="mt-2 text-sm text-gray-700 mb-4">
+                A list of all the users in your account including their firstname, lastname and age.
+            </p>
+            <a href="@Url.Action("Add", "Teacher")"
+                class="rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Add
+                user</a>
+        </div>
+        <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+            @* <form method="post" asp-controller="Teacher" asp-action="Add" class="space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <input type="text" name="firstname" class="border p-2 rounded" placeholder="Firstname" />
+                        <span asp-validation-for="FirstOrDefault().Firstname" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <input type="text" name="lastname" class="border p-2 rounded" placeholder="Lastname" />
+                        <span asp-validation-for="FirstOrDefault().Lastname" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <input type="text" name="age" class="border p-2 rounded" placeholder="Age" />
+                        <span asp-validation-for="FirstOrDefault().Age" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <input type="email" name="email" class="border p-2 rounded" placeholder="Email" />
+                        <span asp-validation-for="FirstOrDefault().Email" class="text-danger"></span>
+                    </div>
+                </div>
+                <input type="hidden" name="isUpdate" id="isUpdate" value="false" />
+                <input type="submit" id="addUpdate"
+                    class="block ml-auto rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                Add user
+                </input> 
+            </form>*@
+        </div>
+    </div>
+    <div class="mt-8 flow-root">
+        <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                <table class="min-w-full divide-y divide-gray-300">
+                    <thead>
+                        <tr>
+                            <th scope="col"
+                                class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">
+                                Firstname
+                            </th>
+                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                Lastname
+                            </th>
+                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                Email
+                            </th>
+                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                Age
+                            </th>
+                            <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0">
+                                <span class="sr-only">Remove</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        @foreach (var teacher in Model)
+                        {
+                            <form method="post" asp-controller="Teacher" asp-action="Update" class="inline">
+                                <tr key={teacher.Id}>
+                                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900">
+                                        <input type="text" name="firstname" class="border p-2 rounded"
+                                            value="@teacher.Firstname" />
+                                    </td>
+                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"> <input type="text"
+                                            name="lastname" class="border p-2 rounded" value="@teacher.Lastname" /></td>
+                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"> <input type="text"
+                                            name="age" class="border p-2 rounded" value="@teacher.Email" /></td>
+                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"> <input type="text"
+                                            name="age" class="border p-2 rounded" value="@teacher.Age" /></td>
+                                    <td
+                                        class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+                                        <a asp-controller="Teacher" asp-action="ShowDetails" asp-route-id="@teacher.Id"
+                                            class="text-indigo-600 hover:text-indigo-900">Show</a>
+                                    </td>
+                                    <td
+                                        class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Nom</th>
-            <th>Prenom</th>
-            <th>Age</th>
-            <th>Add</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var teacher in Model)
-        {
-            <tr>
-                <td>@teacher.Lastname</td>
-                <td>@teacher.Firstname</td>
-                <td>@teacher.Age</td>
-                <td>
-                    <button>Ajouter</button>
-                </td>
-            </tr>
-        }
+                                        <input type="hidden" name="id" value="@teacher.Id" />
+                                        <button type="submit" class="text-indigo-600 hover:text-indigo-900">Update</button>
+                                    </td>
+                                    <td
+                                        class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+                                        <a asp-controller="Teacher" asp-action="Delete" asp-route-id="@teacher.Id"
+                                            class="text-indigo-600 hover:text-indigo-900">Delete</a>
+                                    </td>
+                                </tr>
+                            </form>
 
-    </tbody>
-</table>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

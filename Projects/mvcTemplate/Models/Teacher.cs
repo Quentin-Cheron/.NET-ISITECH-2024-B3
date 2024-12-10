@@ -1,16 +1,22 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace mvc.Models;
 
 public class Teacher
 {
+    [Required(ErrorMessage = "L'identifiant est obligatoire")]
+    [Display(Name = "Identifiant")]
     public int Id { get; set; }
-    public string Firstname { get; set; }
+
+    [StringLength(20, MinimumLength = 5)]
     public string Lastname { get; set; }
+    public string Firstname { get; set; }
 
+    [Required]
+    [EmailAddress]
+    public string Email { get; set; }
+
+    [Required]
+    [Range(18, 100)]
     public int Age { get; set; }
-
-    public double GPA { get; set; }
-
-    public Major Major { get; set; }
-
-    public DateTime AdmissionDate { get; set; }
 }
