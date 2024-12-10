@@ -9,6 +9,8 @@ public class ApplicationDbContext : DbContext
 
     public DbSet<Student> Student { get; set; }
 
+    public DbSet<Auth> Auth { get; set; }
+
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
 

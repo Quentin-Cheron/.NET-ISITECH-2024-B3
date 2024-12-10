@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using mvc.Data;
 
@@ -5,9 +7,24 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+var serverVersion = new MySqlServerVersion(new Version(10, 4, 32));
 builder.Services.AddDbContext<ApplicationDbContext>(
-    options => options.UseMySql("server=localhost;user=root;password=;database=mvc;", new MySqlServerVersion(new Version(10, 4, 32)))
+    options => options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"), serverVersion)
 );
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("TeacherOnly", policy => policy.RequireRole("Teacher"));
+});
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Auth/Login";
+        options.LogoutPath = "/Auth/Logout";
+        options.AccessDeniedPath = "/Auth/AccessDenied";
+    });
 
 var app = builder.Build();
 
@@ -24,6 +41,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

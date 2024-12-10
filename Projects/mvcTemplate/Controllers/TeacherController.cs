@@ -1,42 +1,41 @@
 using Microsoft.AspNetCore.Mvc;
-
+using mvc.Data;
 using mvc.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace mvc.Controllers
 {
+    [Authorize(Policy = "TeacherOnly")]
     public class TeacherController : Controller
     {
         // Création d'une liste statique de Student
-        private static List<Teacher> teachers = new()
+        private readonly ApplicationDbContext _context;
+
+        public TeacherController(ApplicationDbContext context)
         {
-            new() { Age = 20, Firstname = "Quentin",  Id = 1, Lastname = "Crespin", Email = "quentin.crespin@example.com" },
-            new() { Age = 20, Firstname = "Thomas", Id = 2, Lastname = "Crespin", Email = "thomas.crespin@example.com" },
-            new() { Age = 20, Firstname = "Charlie", Id = 3, Lastname = "Doe", Email = "charlie.doe@example.com" },
-            new() { Age = 20, Firstname = "Jean", Id = 4, Lastname = "Doe", Email = "jean.doe@example.com" },
-        };
+            _context = context;
+        }
+
         // GET: StudentController
         public ActionResult Index()
         {
-            return View(teachers);
+            return View(_context.Teachers.ToList());
         }
-
 
         public ActionResult ShowDetails(int id)
         {
-            var teacherToShow = teachers.FirstOrDefault(teacher => teacher.Id == id);
-            if (teacherToShow != null)
-            {
-                return View(teacherToShow);
-            }
-            return RedirectToAction("Index");
+            var teacherToShow = _context.Teachers.Find(id);
+            return View(teacherToShow);
         }
 
         public ActionResult Delete(int id)
         {
-            var studentToDelete = teachers.FirstOrDefault(student => student.Id == id);
+            var studentToDelete = _context.Teachers.Find(id);
             if (studentToDelete != null)
             {
-                teachers.Remove(studentToDelete);
+                _context.Teachers.Remove(studentToDelete);
+                _context.SaveChanges();
+
             }
             return RedirectToAction("Index");
         }
@@ -44,6 +43,7 @@ namespace mvc.Controllers
         [HttpGet]
         public IActionResult Add()
         {
+
             return View();
         }
 
@@ -54,19 +54,26 @@ namespace mvc.Controllers
             {
                 return View();
             }
-            teachers.Add(teacher);
+            // Ajouter dans la base de données
+            _context.Teachers.Add(teacher);
+
+            // Sauvegarder les modifications dans la base de données
+            _context.SaveChanges();
+
             return RedirectToAction("Index");
         }
 
-        public ActionResult Update(string firstname, string lastname, int age, int id)
+        public ActionResult Update(string firstname, string lastname, int age, string email, int id)
         {
-            var studentToUpdate = teachers.FirstOrDefault(student => student.Id == id);
+            var studentToUpdate = _context.Teachers.Find(id);
             if (studentToUpdate != null)
             {
                 studentToUpdate.Firstname = firstname;
                 studentToUpdate.Lastname = lastname;
                 studentToUpdate.Age = age;
+                studentToUpdate.Email = email;
             }
+            _context.SaveChanges();
             return RedirectToAction("Index");
         }
     }

@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using mvc.Models;
 
 namespace mvc.Controllers
 {
+    [Authorize(Policy = "TeacherOnly")]
     public class StudentController : Controller
     {
         // Création d'une liste statique de Student

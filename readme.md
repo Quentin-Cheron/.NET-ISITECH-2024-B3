@@ -31,3 +31,13 @@ WWWRoot : fichiers statiques (css, js, images)
 ## Utils
 
 - `comment`: @* comment *@
+
+## Commandes
+
+- dotnet new mvc -n mvc -o mvcTemplate : pour créer un projet MVC dans un dossier mvcTemplate
+- dotnet run : à lancer dans un dossier contenant un fichier .csproj  pour lancer un projet .NET Core
+- dotnet build : à lancer dans un dossier contenant un fichier .csproj pour compiler un projet .NET Core
+- dotnet watch run : pour lancer un projet .NET Core et le recharger à chaque modification
+- dotnet add package Microsoft.EntityFrameworkCore.SqlServer : pour ajouter le package Entity Framework Core SQL Server
+- dotnet ef migrations add InitialCreate : pour créer une migration
+- dotnet ef database update : pour appliquer les migrations

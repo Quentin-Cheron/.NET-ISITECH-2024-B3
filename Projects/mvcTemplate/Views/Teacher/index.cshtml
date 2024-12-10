@@ -67,16 +67,16 @@
                         @foreach (var teacher in Model)
                         {
                             <form method="post" asp-controller="Teacher" asp-action="Update" class="inline">
-                                <tr key={teacher.Id}>
-                                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900">
+                                <tr>
+                                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-900">
                                         <input type="text" name="firstname" class="border p-2 rounded"
                                             value="@teacher.Firstname" />
                                     </td>
                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"> <input type="text"
                                             name="lastname" class="border p-2 rounded" value="@teacher.Lastname" /></td>
-                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"> <input type="text"
-                                            name="age" class="border p-2 rounded" value="@teacher.Email" /></td>
-                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"> <input type="text"
+                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"> <input type="email"
+                                            name="email" class="border p-2 rounded" value="@teacher.Email" /></td>
+                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"> <input type="number"
                                             name="age" class="border p-2 rounded" value="@teacher.Age" /></td>
                                     <td
                                         class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
@@ -96,7 +96,6 @@
                                     </td>
                                 </tr>
                             </form>
-
                         }
                     </tbody>
                 </table>
