@@ -5,6 +5,7 @@ using mvc.Data;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using mvc.Models;
 
 namespace mvc.Controllers
 {
@@ -23,9 +24,30 @@ namespace mvc.Controllers
             return View();
         }
 
-        public IActionResult AccessDenied(string returnUrl)
+        public IActionResult Signup()
+        {
+            return View();
+        }
+
+        public IActionResult AccessDenied()
         {
             return View("AccessDenied");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Register(string email, string password)
+        {
+            var user = new Auth
+            {
+                Email = email,
+                Password = password,
+                Role = "Student"
+            };
+
+            await _context.Auth.AddAsync(user);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Login");
         }
 
         [HttpPost]
@@ -37,7 +59,7 @@ namespace mvc.Controllers
             {
                 var claims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.Name, email),
+                    new Claim(ClaimTypes.Email, user.Email),
                     new Claim(ClaimTypes.Role, user.Role)
                 };
 

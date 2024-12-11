@@ -41,3 +41,21 @@ WWWRoot : fichiers statiques (css, js, images)
 - dotnet add package Microsoft.EntityFrameworkCore.SqlServer : pour ajouter le package Entity Framework Core SQL Server
 - dotnet ef migrations add InitialCreate : pour créer une migration
 - dotnet ef database update : pour appliquer les migrations
+
+Objet métier : les acteurs qui représentent les données
+
+## Prompt
+
+- authentification : Présenter des informations uniques pour identifier un utilisateur
+
+## Authentification 
+
+- download : 
+  - Microsoft.AspNetCore.Identity.EntityFrameworkCore
+  - Microsoft.AspNetCore.Identity.UI
+
+Remplacer le DBContext par le IdentityUser
+
+program.cs : app.useAuthentication();
+
+View model : structure de données pour la vue
