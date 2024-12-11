@@ -11,33 +11,6 @@
                 class="rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Add
                 user</a>
         </div>
-        <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-            @* <form method="post" asp-controller="Teacher" asp-action="Add" class="space-y-4">
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <input type="text" name="firstname" class="border p-2 rounded" placeholder="Firstname" />
-                        <span asp-validation-for="FirstOrDefault().Firstname" class="text-danger"></span>
-                    </div>
-                    <div>
-                        <input type="text" name="lastname" class="border p-2 rounded" placeholder="Lastname" />
-                        <span asp-validation-for="FirstOrDefault().Lastname" class="text-danger"></span>
-                    </div>
-                    <div>
-                        <input type="text" name="age" class="border p-2 rounded" placeholder="Age" />
-                        <span asp-validation-for="FirstOrDefault().Age" class="text-danger"></span>
-                    </div>
-                    <div>
-                        <input type="email" name="email" class="border p-2 rounded" placeholder="Email" />
-                        <span asp-validation-for="FirstOrDefault().Email" class="text-danger"></span>
-                    </div>
-                </div>
-                <input type="hidden" name="isUpdate" id="isUpdate" value="false" />
-                <input type="submit" id="addUpdate"
-                    class="block ml-auto rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                Add user
-                </input> 
-            </form>*@
-        </div>
     </div>
     <div class="mt-8 flow-root">
         <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -64,39 +37,39 @@
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">
-                        @foreach (var teacher in Model)
-                        {
-                            <form method="post" asp-controller="Teacher" asp-action="Update" class="inline">
-                                <tr>
-                                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-900">
-                                        <input type="text" name="firstname" class="border p-2 rounded"
-                                            value="@teacher.Firstname" />
-                                    </td>
-                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"> <input type="text"
-                                            name="lastname" class="border p-2 rounded" value="@teacher.Lastname" /></td>
-                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"> <input type="email"
-                                            name="email" class="border p-2 rounded" value="@teacher.Email" /></td>
-                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"> <input type="number"
-                                            name="age" class="border p-2 rounded" value="@teacher.Age" /></td>
-                                    <td
-                                        class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                                        <a asp-controller="Teacher" asp-action="ShowDetails" asp-route-id="@teacher.Id"
-                                            class="text-indigo-600 hover:text-indigo-900">Show</a>
-                                    </td>
-                                    <td
-                                        class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+                        @foreach (var event in Model)
+                                    {
+                        <form method="post" asp-controller="Teacher" asp-action="Update" class="inline">
+                            <tr>
+                                <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-900">
+                                    <input type="text" name="firstname" class="border p-2 rounded"
+                                        value="@event.Firstname" />
+                                </td>
+                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"> <input type="text"
+                                        name="lastname" class="border p-2 rounded" value="@event.Lastname" /></td>
+                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"> <input type="email"
+                                        name="email" class="border p-2 rounded" value="@event.Email" /></td>
+                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"> <input type="number"
+                                        name="age" class="border p-2 rounded" value="@event.Age" /></td>
+                                <td
+                                    class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+                                    <a asp-controller="Teacher" asp-action="ShowDetails" asp-route-id="@event.Id"
+                                        class="text-indigo-600 hover:text-indigo-900">Show</a>
+                                </td>
+                                <td
+                                    class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
 
-                                        <input type="hidden" name="id" value="@teacher.Id" />
-                                        <button type="submit" class="text-indigo-600 hover:text-indigo-900">Update</button>
-                                    </td>
-                                    <td
-                                        class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                                        <a asp-controller="Teacher" asp-action="Delete" asp-route-id="@teacher.Id"
-                                            class="text-indigo-600 hover:text-indigo-900">Delete</a>
-                                    </td>
-                                </tr>
-                            </form>
-                        }
+                                    <input type="hidden" name="id" value="@event.Id" />
+                                    <button type="submit" class="text-indigo-600 hover:text-indigo-900">Update</button>
+                                </td>
+                                <td
+                                    class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+                                    <a asp-controller="Teacher" asp-action="Delete" asp-route-id="@event.Id"
+                                        class="text-indigo-600 hover:text-indigo-900">Delete</a>
+                                </td>
+                            </tr>
+                        </form>
+    }
                     </tbody>
                 </table>
             </div>
