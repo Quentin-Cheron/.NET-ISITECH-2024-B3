@@ -22,31 +22,6 @@ namespace mvc.Migrations
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
-            modelBuilder.Entity("mvc.Models.Auth", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Role")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Auth");
-                });
-
             modelBuilder.Entity("mvc.Models.Student", b =>
                 {
                     b.Property<int>("Id")
@@ -79,6 +54,10 @@ namespace mvc.Migrations
                     b.Property<int>("Major")
                         .HasColumnType("int");
 
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.HasKey("Id");
 
                     b.ToTable("Student");
@@ -107,6 +86,10 @@ namespace mvc.Migrations
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("varchar(20)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 

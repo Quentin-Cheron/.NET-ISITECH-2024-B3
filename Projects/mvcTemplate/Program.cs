@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using mvc.Data;
+using QuestPDF.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +25,9 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.LogoutPath = "/Auth/Logout";
         options.AccessDeniedPath = "/Auth/AccessDenied";
     });
+
+
+QuestPDF.Settings.License = LicenseType.Community;
 
 var app = builder.Build();
 

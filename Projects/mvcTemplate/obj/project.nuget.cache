@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "wu7K47Md9KQ=",
+  "dgSpecHash": "tsR0clJQ2pI=",
   "success": true,
   "projectFilePath": "C:\\Users\\Quent\\codelab\\Isitech\\.net\\Projects\\mvcTemplate\\mvc.csproj",
   "expectedPackageFiles": [
@@ -37,6 +37,7 @@
     "C:\\Users\\Quent\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
     "C:\\Users\\Quent\\.nuget\\packages\\mysqlconnector\\2.3.5\\mysqlconnector.2.3.5.nupkg.sha512",
     "C:\\Users\\Quent\\.nuget\\packages\\pomelo.entityframeworkcore.mysql\\8.0.2\\pomelo.entityframeworkcore.mysql.8.0.2.nupkg.sha512",
+    "C:\\Users\\Quent\\.nuget\\packages\\questpdf\\2025.1.0-alpha0\\questpdf.2025.1.0-alpha0.nupkg.sha512",
     "C:\\Users\\Quent\\.nuget\\packages\\system.codedom\\4.4.0\\system.codedom.4.4.0.nupkg.sha512",
     "C:\\Users\\Quent\\.nuget\\packages\\system.collections.immutable\\6.0.0\\system.collections.immutable.6.0.0.nupkg.sha512",
     "C:\\Users\\Quent\\.nuget\\packages\\system.composition\\6.0.0\\system.composition.6.0.0.nupkg.sha512",

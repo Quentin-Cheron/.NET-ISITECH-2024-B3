@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using mvc.Data;
 using System.Security.Claims;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using mvc.Models;
 
@@ -35,16 +34,17 @@ namespace mvc.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(string email, string password)
+        public async Task<IActionResult> Register(string email, string password, string firstname, string lastname)
         {
-            var user = new Auth
+            var user = new Student
             {
                 Email = email,
                 Password = password,
-                Role = "Student"
+                Firstname = firstname,
+                Lastname = lastname
             };
 
-            await _context.Auth.AddAsync(user);
+            await _context.Students.AddAsync(user);
             await _context.SaveChangesAsync();
 
             return RedirectToAction("Login");
@@ -53,15 +53,22 @@ namespace mvc.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(string email, string password)
         {
-            var user = await _context.Auth.FirstOrDefaultAsync(u => u.Email == email && u.Password == password);
+            var teacher = await _context.Teachers.FirstOrDefaultAsync(u => u.Email == email && u.Password == password);
+            var student = await _context.Students.FirstOrDefaultAsync(u => u.Email == email && u.Password == password);
 
-            if (user != null)
+            if (teacher != null || student != null)
             {
-                var claims = new List<Claim>
+                List<Claim> claims = new List<Claim>();
+                if (teacher != null)
                 {
-                    new Claim(ClaimTypes.Email, user.Email),
-                    new Claim(ClaimTypes.Role, user.Role)
-                };
+                    claims.Add(new Claim(ClaimTypes.Email, teacher.Email));
+                    claims.Add(new Claim(ClaimTypes.Role, "Teacher"));
+                }
+                else if (student != null)
+                {
+                    claims.Add(new Claim(ClaimTypes.Email, student.Email));
+                    claims.Add(new Claim(ClaimTypes.Role, "Student"));
+                }
 
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
