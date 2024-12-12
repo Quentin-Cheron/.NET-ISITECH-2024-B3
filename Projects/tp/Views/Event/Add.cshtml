@@ -1,0 +1,69 @@
+@model Event
+
+<form asp-action="Add" asp-controller="Event" method="post">
+    <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12">
+        <div>
+            <h2 class="text-base/7 font-semibold text-gray-900">Personal Information</h2>
+            <p class="mt-1 text-sm/6 text-gray-600">Use a permanent address where you can receive mail.</p>
+        </div>
+
+        <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
+            <div class="sm:col-span-3">
+                <label for="first-name" class="block text-sm/6 font-medium text-gray-900">Title</label>
+                <div class="mt-2">
+                    <input asp-for="Title" type="text" name="title" id="title" autocomplete="title"
+                        class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                </div>
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+
+            <div class="sm:col-span-3">
+                <label for="lastname" class="block text-sm/6 font-medium text-gray-900">Description</label>
+                <div class="mt-2">
+                    <input asp-for="Description" type="text" name="description" id="description"
+                        autocomplete="description"
+                        class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                </div>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="sm:col-span-3">
+                <label for="age" class="block text-sm/6 font-medium text-gray-900">Event Date</label>
+                <div class="mt-2">
+                    <input asp-for="EventDate" id="age" name="eventDate" type="date" autocomplete="eventDate"
+                        class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                </div>
+                <span asp-validation-for="EventDate" class="text-danger"></span>
+            </div>
+            <div class="sm:col-span-3">
+                <label for="email" class="block text-sm/6 font-medium text-gray-900">Max Participants</label>
+                <div class="mt-2">
+                    <input asp-for="MaxParticipants" id="email" name="maxParticipants" type="number"
+                        autocomplete="maxParticipants"
+                        class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                </div>
+                <span asp-validation-for="MaxParticipants" class="text-danger"></span>
+            </div>
+            <div class="sm:col-span-3">
+                <label for="email" class="block text-sm/6 font-medium text-gray-900">Location</label>
+                <div class="mt-2">
+                    <input asp-for="Location" id="email" name="location" type="text" autocomplete="location"
+                        class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                </div>
+                <span asp-validation-for="Location" class="text-danger"></span>
+            </div>
+            <div class="sm:col-span-3">
+                <label for="email" class="block text-sm/6 font-medium text-gray-900">Created At</label>
+                <div class="mt-2">
+                    <input asp-for="CreatedAt" id="email" name="createdAt" type="date" autocomplete="createdAt"
+                        class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                </div>
+                <span asp-validation-for="CreatedAt" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="mt-6 flex items-center justify-end gap-x-6">
+        <button type="reset" class="text-sm/6 font-semibold text-gray-900">Cancel</button>
+        <button type="submit"
+            class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
+    </div>
+</form>

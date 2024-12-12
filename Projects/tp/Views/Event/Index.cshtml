@@ -1,0 +1,88 @@
+@model IEnumerable<Event>
+
+<div class="px-4 sm:px-6 lg:px-8">
+    <div class="sm:flex sm:items-center">
+        <div class="sm:flex-auto">
+            <h1 class="text-base font-semibold text-gray-900">Events</h1>
+            <p class="mt-2 text-sm text-gray-700 mb-4">
+                A list of all events
+            </p>
+            <a href="@Url.Action("Add", "Event")"
+                class="rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Add
+                event</a>
+        </div>
+    </div>
+    <div class="mt-8 flow-root">
+        <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                <table class="min-w-full divide-y divide-gray-300">
+                    <thead>
+                        <tr>
+                            <th scope="col"
+                                class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">
+                                Title
+                            </th>
+                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                Description
+                            </th>
+                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                Date
+                            </th>
+                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                Max Participants
+                            </th>
+                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                Location
+                            </th>
+                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                Created At
+                            </th>
+                            <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0">
+                                <span class="sr-only">Remove</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        @foreach (var events in Model)
+                        {
+                            <form method="post" asp-controller="Event" asp-action="Update" class="inline">
+                                <tr>
+                                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-500">
+                                        <input type="text" name="title" class="border p-2 rounded" value="@events.Title" />
+                                    </td>
+                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"> <input type="text"
+                                            name="lastname" class="border p-2 rounded" value="@events.Description" /></td>
+                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"> <input type="text"
+                                            name="email" class="border p-2 rounded" value="@events.EventDate" /></td>
+                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"> <input type="number"
+                                            name="age" class="border p-2 rounded" value="@events.MaxParticipants" /></td>
+                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"> <input type="text"
+                                            name="age" class="border p-2 rounded" value="@events.Location" /></td>
+                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"> <input type="text"
+                                            name="age" class="border p-2 rounded" value="@events.CreatedAt" /></td>
+                                    <td
+                                        class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+                                        <a asp-controller="Event" asp-action="ShowDetails" asp-route-id="@events.Id"
+                                            class="text-indigo-600 hover:text-indigo-900">Show</a>
+                                    </td>
+
+                                    <td
+                                        class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+
+                                        <input type="hidden" name="id" value="@events.Id" />
+                                        <button type="submit" class="text-indigo-600 hover:text-indigo-900">Update</button>
+                                    </td>
+                                    <td
+                                        class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+                                        <a asp-controller="Event" asp-action="Delete" asp-route-id="@events.Id"
+                                            class="text-indigo-600 hover:text-indigo-900">Delete</a>
+                                    </td>
+                                </tr>
+                            </form>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

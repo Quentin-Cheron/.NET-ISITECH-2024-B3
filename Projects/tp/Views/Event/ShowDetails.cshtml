@@ -1,0 +1,39 @@
+@model Event
+
+<div>
+    <div class="px-4 sm:px-0">
+        <h3 class="text-base/7 font-semibold text-gray-900">Applicant Information</h3>
+        <p class="mt-1 max-w-2xl text-sm/6 text-gray-500">Personal details and application.</p>
+        <a asp-controller="Event" asp-action="GenerateEventPdf" asp-route-id="@Model.Id"
+            class="text-indigo-600 hover:text-indigo-900">Télécharger la fiche de l'évent en PDF</a>
+
+    </div>
+    <div class="mt-6 border-t border-gray-100">
+        <dl class="divide-y divide-gray-100">
+            <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                <dt class="text-sm/6 font-medium text-gray-900">Title</dt>
+                <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">@Model.Title</dd>
+            </div>
+            <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                <dt class="text-sm/6 font-medium text-gray-900">Description</dt>
+                <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">@Model.Description</dd>
+            </div>
+            <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                <dt class="text-sm/6 font-medium text-gray-900">EventDate</dt>
+                <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">@Model.EventDate</dd>
+            </div>
+            <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                <dt class="text-sm/6 font-medium text-gray-900">Max Participants</dt>
+                <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">@Model.MaxParticipants</dd>
+            </div>
+            <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                <dt class="text-sm/6 font-medium text-gray-900">Location</dt>
+                <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">@Model.Location</dd>
+            </div>
+            <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                <dt class="text-sm/6 font-medium text-gray-900">Created At</dt>
+                <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">@Model.CreatedAt</dd>
+            </div>
+        </dl>
+    </div>
+</div>

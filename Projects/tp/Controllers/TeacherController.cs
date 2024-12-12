@@ -1,22 +1,21 @@
 using Microsoft.AspNetCore.Mvc;
 using tp.Data;
+using tp.Models;
 using Microsoft.AspNetCore.Authorization;
-using QuestPDF.Infrastructure;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
-using tp.Models;
+using QuestPDF.Infrastructure;
 
 namespace tp.Controllers
-
 {
     // Check the autorization of the connected user
     [Authorize(Policy = "TeacherOnly")]
-    public class EventController : Controller
+    public class TeacherController : Controller
     {
-        // Création d'une liste statique de Student
+        // Création d'une liste statique de Teacher
         private readonly ApplicationDbContext _context;
 
-        public EventController(ApplicationDbContext context)
+        public TeacherController(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -25,25 +24,25 @@ namespace tp.Controllers
 
         public ActionResult Index()
         {
-            return View(_context.Events.ToList());
+            return View(_context.Teachers.ToList());
         }
 
         // Get the select user and show the informations
 
         public ActionResult ShowDetails(int id)
         {
-            var eventToShow = _context.Events.Find(id);
-            return View(eventToShow);
+            var teacherToShow = _context.Teachers.Find(id);
+            return View(teacherToShow);
         }
 
         // Delete the user by the id
 
         public ActionResult Delete(int id)
         {
-            var studentToDelete = _context.Events.Find(id);
-            if (studentToDelete != null)
+            var teacherToDelete = _context.Teachers.Find(id);
+            if (teacherToDelete != null)
             {
-                _context.Events.Remove(studentToDelete);
+                _context.Teachers.Remove(teacherToDelete);
                 _context.SaveChanges();
 
             }
@@ -59,17 +58,17 @@ namespace tp.Controllers
             return View();
         }
 
-        // Add event in db table
+        // Add teacher in db table
 
         [HttpPost]
-        public IActionResult Add(Event events)
+        public IActionResult Add(Teacher teacher)
         {
             if (!ModelState.IsValid)
             {
                 return View();
             }
             // Ajouter dans la base de données
-            _context.Events.Add(events);
+            _context.Teachers.Add(teacher);
 
             // Sauvegarder les modifications dans la base de données
             _context.SaveChanges();
@@ -77,28 +76,26 @@ namespace tp.Controllers
             return RedirectToAction("Index");
         }
 
-        // Update the event by the id
+        // Update the teacher by the id
 
-        public IActionResult Update(string title, string description, DateTime eventDate, int maxParticipants, string location, int id)
+        public ActionResult Update(string firstname, string lastname, int age, string email, int id)
         {
-            var studentToUpdate = _context.Events.Find(id);
-            if (studentToUpdate != null)
+            var teacherToUpdate = _context.Teachers.Find(id);
+            if (teacherToUpdate != null)
             {
-                studentToUpdate.Title = title;
-                studentToUpdate.Description = description;
-                studentToUpdate.EventDate = eventDate;
-                studentToUpdate.MaxParticipants = maxParticipants;
-                studentToUpdate.Location = location;
+                teacherToUpdate.Firstname = firstname;
+                teacherToUpdate.Lastname = lastname;
+                teacherToUpdate.Email = email;
             }
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
 
-        public IActionResult GenerateEventPdf(int id)
+        public IActionResult GenerateTeacherPdf(int id)
         {
-            var events = _context.Events.Find(id);
+            var teachers = _context.Teachers.Find(id);
 
-            if (events == null)
+            if (teachers == null)
             {
                 return NotFound();
             }
@@ -115,19 +112,16 @@ namespace tp.Controllers
                     page.Content().Column(column =>
                     {
                         column.Spacing(10);
-                        column.Item().Text($"Title: {events.Title}");
-                        column.Item().Text($"Description: {events.Description}");
-                        column.Item().Text($"Event Date: {events.EventDate}");
-                        column.Item().Text($"Max Participants: {events.MaxParticipants}");
-                        column.Item().Text($"Location: {events.Location}");
+                        column.Item().Text($"Full Name: {teachers.Firstname} {teachers.Lastname}");
+                        column.Item().Text($"Age: {teachers.Age}");
+                        column.Item().Text($"Email: {teachers.Email}");
                     });
 
                     page.Footer().AlignRight().Text($"Generated on {DateTime.Now:dd MMM yyyy}");
                 });
             }).GeneratePdf();
 
-            return File(pdf, "application/pdf", $"{events.Title}_{events.EventDate}_Info.pdf");
+            return File(pdf, "application/pdf", $"{teachers.Firstname}_{teachers.Lastname}_Info.pdf");
         }
-
     }
 }
