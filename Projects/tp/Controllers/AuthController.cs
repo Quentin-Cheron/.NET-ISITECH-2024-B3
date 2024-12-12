@@ -47,7 +47,7 @@ namespace tp.Controllers
             await _context.Students.AddAsync(user);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction("Login");
+            return RedirectToAction("Signin");
         }
 
         [HttpPost]
@@ -73,7 +73,7 @@ namespace tp.Controllers
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
 
-                return RedirectToAction("Index", "Teacher");
+                return RedirectToAction("Index", "Home");
             }
 
             ModelState.AddModelError("", "Identifiants invalides");
@@ -83,7 +83,7 @@ namespace tp.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Login");
+            return RedirectToAction("Signin");
         }
     }
 }

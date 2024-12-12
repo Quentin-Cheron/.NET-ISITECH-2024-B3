@@ -8,7 +8,11 @@ html {
   }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
@@ -19,4 +23,36 @@ html {
 
 body {
   margin-bottom: 60px;
+}
+
+.scrollxs::-webkit-scrollbar {
+  background-color: #c4c4c4;
+  width: 4px;
+  height: 4px;
+}
+
+.scrollsm::-webkit-scrollbar {
+  background-color: #c4c4c4;
+  width: 8px;
+  height: 8px;
+}
+
+.scrolllg::-webkit-scrollbar {
+  background-color: #c4c4c4;
+  width: 12px;
+  height: 12px;
+}
+
+.scrollxl::-webkit-scrollbar {
+  background-color: #c4c4c4;
+  width: 16px;
+  height: 16px;
+}
+
+.scrollxs::-webkit-scrollbar-thumb,
+.scrollsm::-webkit-scrollbar-thumb,
+.scrolllg::-webkit-scrollbar-thumb,
+.scrollxl::-webkit-scrollbar-thumb {
+  background-color: #5c5c5c;
+  border-radius: 5px;
 }

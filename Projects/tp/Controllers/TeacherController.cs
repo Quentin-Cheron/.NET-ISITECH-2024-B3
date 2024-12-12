@@ -9,7 +9,7 @@ using QuestPDF.Infrastructure;
 namespace tp.Controllers
 {
     // Check the autorization of the connected user
-    [Authorize(Policy = "TeacherOnly")]
+    [Authorize(Policy = "AdminOnly")]
     public class TeacherController : Controller
     {
         // Création d'une liste statique de Teacher

@@ -2,18 +2,38 @@
 
 <div class="px-4 sm:px-6 lg:px-8">
     <div class="sm:flex sm:items-center">
-        <div class="sm:flex-auto">
+        <div class="sm:flex-auto mb-4">
             <h1 class="text-base font-semibold text-gray-900">Events</h1>
             <p class="mt-2 text-sm text-gray-700 mb-4">
                 A list of all events
             </p>
-            <a href="@Url.Action("Add", "Event")"
-                class="rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Add
-                event</a>
+            @if (User.IsInRole("Teacher"))
+            {
+                <a href="@Url.Action("Add", "Event")"
+                    class="rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Add
+                    event</a>
+            }
         </div>
     </div>
+    <form method="get" asp-action="Index" class="grid grid-cols-2 max-w-xl gap-4">
+        <div
+            class="flex rounded-md bg-white outline outline-1 -outline-offset-1 outline-gray-300 focus-within:outline focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
+            <input type="text" name="searchTitle" id="searchTitle" placeholder="Title"
+                class="block min-w-0 grow px-3 py-1.5 text-base text-gray-900 placeholder:text-gray-400 focus:outline focus:outline-0 sm:text-sm/6">
+        </div>
+        <div
+            class="flex rounded-md bg-white outline outline-1 -outline-offset-1 outline-gray-300 focus-within:outline focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
+            <input type="date" name="searchDate" id="searchDate"
+                class="block min-w-0 grow px-3 py-1.5 text-base text-gray-900 placeholder:text-gray-400 focus:outline focus:outline-0 sm:text-sm/6">
+        </div>
+        <button type="submit"
+            class="rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-400">
+            Filter / Reset
+        </button>
+    </form>
+
     <div class="mt-8 flow-root">
-        <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8 scrollsm">
             <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                 <table class="min-w-full divide-y divide-gray-300">
                     <thead>
@@ -51,33 +71,129 @@
                                         <input type="text" name="title" class="border p-2 rounded" value="@events.Title" />
                                     </td>
                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"> <input type="text"
-                                            name="lastname" class="border p-2 rounded" value="@events.Description" /></td>
+                                            name="description" class="border p-2 rounded" value="@events.Description" />
+                                    </td>
                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"> <input type="text"
-                                            name="email" class="border p-2 rounded" value="@events.EventDate" /></td>
+                                            name="eventDate" class="border p-2 rounded" value="@events.EventDate" /></td>
                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"> <input type="number"
-                                            name="age" class="border p-2 rounded" value="@events.MaxParticipants" /></td>
+                                            name="maxParticipants" class="border p-2 rounded"
+                                            value="@events.MaxParticipants" /></td>
                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"> <input type="text"
-                                            name="age" class="border p-2 rounded" value="@events.Location" /></td>
+                                            name="location" class="border p-2 rounded" value="@events.Location" /></td>
                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"> <input type="text"
-                                            name="age" class="border p-2 rounded" value="@events.CreatedAt" /></td>
+                                            name="createdAt" class="border p-2 rounded" value="@events.CreatedAt" /></td>
                                     <td
                                         class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                                         <a asp-controller="Event" asp-action="ShowDetails" asp-route-id="@events.Id"
                                             class="text-indigo-600 hover:text-indigo-900">Show</a>
                                     </td>
+                                    @if (User.IsInRole("Teacher"))
+                                    {
+                                        <td
+                                            class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
 
-                                    <td
-                                        class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-
-                                        <input type="hidden" name="id" value="@events.Id" />
-                                        <button type="submit" class="text-indigo-600 hover:text-indigo-900">Update</button>
-                                    </td>
-                                    <td
-                                        class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                                        <a asp-controller="Event" asp-action="Delete" asp-route-id="@events.Id"
-                                            class="text-indigo-600 hover:text-indigo-900">Delete</a>
-                                    </td>
+                                            <input type="hidden" name="id" value="@events.Id" />
+                                            <button type="button" onclick="toggleModalUpdate()"
+                                                class="text-indigo-600 hover:text-indigo-900">
+                                                Update
+                                            </button>
+                                        </td>
+                                        <td
+                                            class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+                                            <button type="button" onclick="toggleModalDelete()"
+                                                class="text-indigo-600 hover:text-indigo-900">
+                                                Delete
+                                            </button>
+                                        </td>
+                                    }
                                 </tr>
+                                <!-- Delete Modal  -->
+                                <div id="modalDelete" class="relative z-10 hidden" aria-labelledby="modal-title"
+                                    role="dialog" aria-modal="true">
+                                    <!-- Background backdrop -->
+                                    <div class="fixed inset-0 bg-gray-500/75 transition-opacity" aria-hidden="true"></div>
+
+                                    <!-- Modal content -->
+                                    <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+                                        <div
+                                            class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                                            <div
+                                                class="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
+                                                <div class="sm:flex sm:items-start">
+                                                    <div
+                                                        class="mx-auto flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                                                        <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24"
+                                                            stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+                                                        </svg>
+                                                    </div>
+                                                    <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                                                        <h3 class="text-base font-semibold text-gray-900" id="modal-title">
+                                                            Delete Event</h3>
+                                                        <div class="mt-2">
+                                                            <p class="text-sm text-gray-500">Are you sure you want to remove
+                                                                this event ? All of
+                                                                your data will be permanently removed from our servers
+                                                                forever.
+                                                                This action cannot be
+                                                                undone.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
+                                                    <a asp-controller="Event" asp-action="Delete" asp-route-id="@events.Id"
+                                                        class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">Delete</a>
+                                                    <button type="button" onclick="toggleModalDelete()"
+                                                        class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="modalUpdate" class="relative z-10 hidden" aria-labelledby="modal-title"
+                                    role="dialog" aria-modal="true">
+                                    <!-- Background backdrop -->
+                                    <div class="fixed inset-0 bg-gray-500/75 transition-opacity" aria-hidden="true"></div>
+
+                                    <!-- Modal content -->
+                                    <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+                                        <div
+                                            class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                                            <div
+                                                class="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
+                                                <div class="sm:flex sm:items-start">
+                                                    <div
+                                                        class="mx-auto flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                                                        <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24"
+                                                            stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+                                                        </svg>
+                                                    </div>
+                                                    <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                                                        <h3 class="text-base font-semibold text-gray-900" id="modal-title">
+                                                            Update Event</h3>
+                                                        <div class="mt-2">
+                                                            <p class="text-sm text-gray-500">Are you sure you want to update
+                                                                this event ?
+                                                                This action cannot be
+                                                                undone.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
+                                                    <input type="hidden" name="id" value="@events.Id" />
+                                                    <button type="submit"
+                                                        class="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 sm:ml-3 sm:w-auto">Update</button>
+                                                    <button type="button" onclick="toggleModalUpdate()"
+                                                        class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </form>
                         }
                     </tbody>
@@ -86,3 +202,17 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    function toggleModalDelete() {
+        const modal = document.getElementById('modalDelete');
+        modal.classList.toggle('hidden');
+        modal.classList.toggle('flex');
+    }
+    function toggleModalUpdate() {
+        const modal = document.getElementById('modalUpdate');
+        modal.classList.toggle('hidden');
+        modal.classList.toggle('flex');
+    }
+</script>

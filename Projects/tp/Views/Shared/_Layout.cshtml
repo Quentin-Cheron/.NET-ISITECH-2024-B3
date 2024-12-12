@@ -5,6 +5,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - tp</title>
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
@@ -25,18 +27,29 @@
                     <Bars3Icon aria-hidden="true" class="size-6" />
                 </button>
             </div>
-            <div class="hidden lg:flex lg:gap-x-12">
+            <div class="hidden lg:flex lg:gap-x-12 items-center">
                 <a href="@Url.Action("Index", "Home")" class="text-sm/6 font-semibold text-gray-900">Home</a>
-                <a href="@Url.Action("Index", "About")" class="text-sm/6 font-semibold text-gray-900">En savoir
-                    plus</a>
+                <a href="@Url.Action("Index", "Event")" class="text-sm/6 font-semibold text-gray-900">Événements</a>
+                @if (User.IsInRole("Teacher"))
+                {
+                    <a href="@Url.Action("Index", "Student")" class="text-sm/6 font-semibold text-gray-900">Étudiants</a>
+                }
+                <a href="@Url.Action("Index", "About")" class="text-sm/6 font-semibold text-gray-900">En savoir plus</a>
+
             </div>
             <div class="hidden lg:flex lg:flex-1 lg:justify-end gap-4">
-                <a href="/Auth/Signin" class="text-sm/6 font-semibold text-gray-900">
-                    Log in <span aria-hidden="true">&rarr;</span>
-                </a>
-                @* <a href="/Auth/Logout" class="text-sm/6 font-semibold text-gray-900">
-                    Log out
-                </a> *@
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <a href="/Auth/Signin" class="text-sm/6 font-semibold text-gray-900">
+                        Log in <span aria-hidden="true">&rarr;</span>
+                    </a>
+                }
+                else
+                {
+                    <a href="/Auth/Logout" class="text-sm/6 font-semibold text-gray-900">
+                        Log out
+                    </a>
+                }
             </div>
         </nav>
     </header>

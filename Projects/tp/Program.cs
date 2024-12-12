@@ -17,6 +17,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("TeacherOnly", policy => policy.RequireRole("Teacher"));
+    options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
 });
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -26,7 +27,6 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.LogoutPath = "/Auth/Logout";
         options.AccessDeniedPath = "/Auth/AccessDenied";
     });
-
 
 QuestPDF.Settings.License = LicenseType.Community;
 

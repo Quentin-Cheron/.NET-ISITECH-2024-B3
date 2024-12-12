@@ -10,7 +10,6 @@ namespace tp.Controllers
 
 {
     // Check the autorization of the connected user
-    [Authorize(Policy = "TeacherOnly")]
     public class EventController : Controller
     {
         // Création d'une liste statique de Student
@@ -21,11 +20,23 @@ namespace tp.Controllers
             _context = context;
         }
 
-        // Get all Users and return it in the view
+        // Get all Users and return it in the view, filtre by title and date
 
-        public ActionResult Index()
+        public ActionResult Index(string searchTitle, string searchDate)
         {
-            return View(_context.Events.ToList());
+            var events = _context.Events.AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchTitle))
+            {
+                events = events.Where(e => e.Title.Contains(searchTitle));
+            }
+
+            if (!string.IsNullOrEmpty(searchDate) && DateTime.TryParse(searchDate, out DateTime parsedDate))
+            {
+                events = events.Where(e => e.EventDate.Date == parsedDate.Date);
+            }
+
+            return View(events.ToList());
         }
 
         // Get the select user and show the informations
@@ -37,6 +48,7 @@ namespace tp.Controllers
         }
 
         // Delete the user by the id
+        [Authorize(Policy = "TeacherOnly")]
 
         public ActionResult Delete(int id)
         {
@@ -51,8 +63,9 @@ namespace tp.Controllers
         }
 
         // Return the add view
-
+        [Authorize(Policy = "TeacherOnly")]
         [HttpGet]
+
         public IActionResult Add()
         {
 
@@ -60,8 +73,9 @@ namespace tp.Controllers
         }
 
         // Add event in db table
-
+        [Authorize(Policy = "TeacherOnly")]
         [HttpPost]
+
         public IActionResult Add(Event events)
         {
             if (!ModelState.IsValid)
@@ -78,6 +92,7 @@ namespace tp.Controllers
         }
 
         // Update the event by the id
+        [Authorize(Policy = "TeacherOnly")]
 
         public IActionResult Update(string title, string description, DateTime eventDate, int maxParticipants, string location, int id)
         {
@@ -93,6 +108,8 @@ namespace tp.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        // generate the pdf of the event
 
         public IActionResult GenerateEventPdf(int id)
         {

@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using tp.Data;
 using tp.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace tp.Controllers
 {
@@ -62,6 +63,7 @@ namespace tp.Controllers
         {
             if (!ModelState.IsValid)
             {
+                ModelState.AddModelError("", "Identifiants invalides");
                 return View();
             }
             // Ajouter dans la base de données
