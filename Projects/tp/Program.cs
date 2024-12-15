@@ -18,6 +18,10 @@ builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("TeacherOnly", policy => policy.RequireRole("Teacher"));
     options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
+    options.AddPolicy("StudentOnly", policy => policy.RequireRole("Student"));
+    options.AddPolicy("TeacherOrStudent", policy =>
+        policy.RequireAssertion(context =>
+            context.User.IsInRole("Teacher") || context.User.IsInRole("Student")));
 });
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

@@ -1,10 +1,11 @@
 @model Student
 
 <form asp-action="Add" asp-controller="Student" method="post">
-    <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
+    <div
+        class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3 px-4 sm:px-6 lg:px-8">
         <div>
-            <h2 class="text-base/7 font-semibold text-gray-900">Personal Information</h2>
-            <p class="mt-1 text-sm/6 text-gray-600">Use a permanent address where you can receive mail.</p>
+            <h2 class="text-base/7 font-semibold text-gray-900">Student Information</h2>
+            <p class="mt-1 text-sm/6 text-gray-600">All field with * is required</p>
         </div>
 
         <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">

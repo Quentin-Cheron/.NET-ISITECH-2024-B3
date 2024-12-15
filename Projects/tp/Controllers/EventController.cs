@@ -9,6 +9,8 @@ using tp.Models;
 namespace tp.Controllers
 
 {
+    [Authorize(Policy = "TeacherOrStudent")]
+
     // Check the autorization of the connected user
     public class EventController : Controller
     {
@@ -22,7 +24,7 @@ namespace tp.Controllers
 
         // Get all Users and return it in the view, filtre by title and date
 
-        public ActionResult Index(string searchTitle, string searchDate)
+        public ActionResult Index(string searchTitle, string searchDate, int page = 1, int pageSize = 2)
         {
             var events = _context.Events.AsQueryable();
 
@@ -36,7 +38,14 @@ namespace tp.Controllers
                 events = events.Where(e => e.EventDate.Date == parsedDate.Date);
             }
 
-            return View(events.ToList());
+            var totalEvents = events.Count();
+            var totalPages = (int)Math.Ceiling(totalEvents / (double)pageSize);
+            var pagedEvents = events.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            ViewBag.TotalPages = totalPages;
+            ViewBag.CurrentPage = page;
+
+            return View(pagedEvents);
         }
 
         // Get the select user and show the informations
